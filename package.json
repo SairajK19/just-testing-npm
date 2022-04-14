@@ -1,7 +1,12 @@
 {
-  "name": "npm-test",
+  "name": "just-testing-npm",
   "version": "0.1.0",
-  "private": true,
+  "module": "./lib/esm/index.js",
+  "main": "./lib/cjs/index.js",
+  "files": [
+    "lib/"
+  ],
+  "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.0.1",
@@ -10,6 +15,7 @@
     "@types/node": "^16.11.27",
     "@types/react": "^18.0.5",
     "@types/react-dom": "^18.0.0",
+    "copyfiles": "^2.4.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "5.0.1",
@@ -20,7 +26,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "clean": "rimraf lib",
+    "copy-files": "copyfiles -e **/*.ts -e **/*.tsx -u 1 src/**/*.scss lib/esm/src",
+    "tsc": "npm run clean && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-files",
+    "prepare": "npm run tsc"
   },
   "eslintConfig": {
     "extends": [
